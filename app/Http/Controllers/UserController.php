@@ -21,8 +21,8 @@ class UserController extends Controller
         ]);
     }
 
-    public function update(Request $data) {
-        User::findOrFail($data->id)->update($data->all());
+    public function update(Request $req) {
+        User::findOrFail($req->id)->update($req->all());
         return redirect()->route('users.index');
     }
 }

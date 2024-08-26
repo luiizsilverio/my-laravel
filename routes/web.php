@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ClienteController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -21,6 +22,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
     Route::get('/users/edit/{id}', [UserController::class, 'edit'])->name('users.edit')->middleware(['can:isAdmin']);
     Route::put('/users/update/{id}', [UserController::class, 'update'])->name('users.update');
+
+    // Clientes
+    Route::resources([
+        'clientes' => ClienteController::class
+    ]);
 });
 
 require __DIR__.'/auth.php';
