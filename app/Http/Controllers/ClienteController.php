@@ -3,16 +3,30 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cliente;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 
 class ClienteController extends Controller
 {
+    public function __construct() {
+        $this->middleware(middleware: 'can:isAdmin')->only(methods: ['index', 'destroy']);
+    }
+
+    public function meus($id) {
+        $user = User::where('id', $id)->first();
+        $clientes = $user->clientes()->get();
+        return view('clientes.meus', ['clientes' => $clientes]);
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        return view('clientes.index', [
+            'clientes' => Cliente::orderBy('nome')->paginate('5')
+        ]);
     }
 
     /**
@@ -28,7 +42,16 @@ class ClienteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $cliente = new Cliente();
+        $cliente->user_id  = $request->user_id;
+        $cliente->nome     = $request->nome;
+        $cliente->email    = $request->email;
+        $cliente->telefone = $request->telefone;
+        $cliente->empresa  = $request->empresa;
+        $cliente->tel_com  = $request->tel_com;
+
+        $cliente->save();
+        return redirect()->route('clientes.index')->with('msg', 'Cliente cadastrado com sucesso!');
     }
 
     /**
@@ -36,7 +59,7 @@ class ClienteController extends Controller
      */
     public function show(Cliente $cliente)
     {
-        //
+        return view('clientes.show', ['cliente' => $cliente]);
     }
 
     /**
