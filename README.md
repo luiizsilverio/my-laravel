@@ -9,14 +9,15 @@
 Esse projeto foi desenvolvido com as seguintes tecnologias:
 
 - __PHP__
-- __Laravel__ com banco de dados __MySQL__ 
+- __Laravel__ com autenticação __Breeze__
+- Banco de dados __MySQL__ 
 - __TailwindCSS__ para estilos
 
 <br />
 
 ## 💻 Projeto
 
-Projeto de CRUD de usuários e clientes desenvolvido em PHP utilizando Laravel com banco de dados MySQL.
+Projeto de CRUD de usuários e clientes desenvolvido em PHP utilizando Laravel, com autenticação e banco de dados MySQL.
 
 <br />
 
