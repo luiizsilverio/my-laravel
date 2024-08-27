@@ -6,6 +6,7 @@ use App\Models\Cliente;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class ClienteController extends Controller
 {
@@ -67,7 +68,7 @@ class ClienteController extends Controller
      */
     public function edit(Cliente $cliente)
     {
-        //
+        return view('clientes.edit', ['cliente' => $cliente]);
     }
 
     /**
@@ -75,14 +76,21 @@ class ClienteController extends Controller
      */
     public function update(Request $request, Cliente $cliente)
     {
-        //
+        Cliente::findOrFail($cliente->id)->update($request->all());
+        return redirect()->route('clientes.index')->with('msg', 'Cliente alterado com sucesso!');
+    }
+
+    public function conf_delete($id) {
+        $cliente = Cliente::findOrFail($id)->first();
+        return view('clientes.conf_delete', ['cliente' => $cliente]);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Cliente $cliente)
+    public function destroy($id)
     {
-        //
+        Cliente::findOrFail($id)->delete();
+        return redirect()->route('clientes.meus', Auth::user()->id)->with('msg', 'Cliente excluído com sucesso!');
     }
 }

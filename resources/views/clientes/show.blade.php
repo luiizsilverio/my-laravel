@@ -10,8 +10,14 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     <p>
-                        <a href="{{ route('clientes.meus', Auth::user()->id) }}" class="bg-blue-500 text-white rounded p-2">
+                        <a href="{{ route('clientes.meus', Auth::user()->id) }}" class="bg-blue-500 text-white rounded p-2 mr-2">
                             Meus Clientes
+                        </a>
+                        <a href="{{ route('clientes.edit', $cliente->id) }}" class="bg-purple-500 text-white rounded p-2 mr-2">
+                            Alterar Dados
+                        </a>
+                        <a href="{{ route('clientes.conf_delete', $cliente->id) }}" class="bg-red-500 text-white rounded p-2">
+                            Excluir Cliente
                         </a>
                     </p>
                 </div>

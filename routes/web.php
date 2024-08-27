@@ -4,13 +4,18 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ClienteController;
 use Illuminate\Support\Facades\Route;
+use App\Models\Cliente;
+use App\Models\User;
 
 Route::get('/', function () {
     return view('auth.login');
 });
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return view('dashboard', [
+        'clientes' => Cliente::all()->count(),
+        'usuarios' => User::all()->count()
+    ]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
@@ -29,6 +34,7 @@ Route::middleware('auth')->group(function () {
     ]);
 
     Route::get('/clientes/meus/{id}', [ClienteController::class, 'meus'])->name('clientes.meus');
+    Route::get('/clientes/conf_delete/{id}', [ClienteController::class, 'conf_delete'])->name('clientes.conf_delete');
 
 });
 
